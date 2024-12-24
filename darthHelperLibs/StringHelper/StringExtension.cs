@@ -20,16 +20,24 @@ namespace darthHelperLibs.StringHelper
             return n >= input.Length ? input : input[..n];
         }
 
-        public static string BuildString(this IEnumerable<string>? values)
+        /// <summary>
+        /// Concatenates a collection of strings into a single string, treating null values as empty.
+        /// </summary>
+        /// <param name="values">The collection of strings to concatenate. Can include null values.</param>
+        /// <returns>
+        /// A single concatenated string, or an empty string if the collection is null or empty.
+        /// </returns>
+        public static string BuildString(this IEnumerable<string?>? values)
         {
-            if (values == null || !values.Any()) return string.Empty;
+            if (values == null || !values.Any())
+                return string.Empty;
 
-            // Calculate estimated capacity, handling null values safely
-            var estimatedCapacity = values.Sum(v => v?.Length ?? 0);
+            // Calculate estimated capacity using Aggregate for better readability
+            var estimatedCapacity = values.Aggregate(0, (sum, value) => sum + (value?.Length ?? 0));
 
             var strBuilder = new StringBuilder(estimatedCapacity);
 
-            // Append each string, treating null values as empty
+            // Use StringBuilder.Append directly while iterating
             foreach (var value in values)
             {
                 strBuilder.Append(value ?? string.Empty);

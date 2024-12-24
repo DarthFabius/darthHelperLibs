@@ -35,7 +35,7 @@ namespace darthHelperLibs.test.StringHelper
             Assert.Equal(new string('A', 1000) + new string('B', 1000), result);
         }
 
-        public class GetLeftTests
+        public class LeftTests
         {
             [Theory]
             [InlineData("Hello, World!", 5, "Hello")]   // Normal case
@@ -45,7 +45,7 @@ namespace darthHelperLibs.test.StringHelper
             [InlineData("Sample", 0, "")]               // n = 0
             [InlineData("Sample", -3, "")]              // n < 0
             [InlineData("Edge", 4, "Edge")]             // n == length
-            public void GetLeft_ShouldReturnExpectedResult(string input, int n, string expected)
+            public void GetLeft_ShouldReturnExpectedResult(string? input, int n, string expected)
             {
                 Assert.Equal(expected, input.Left(n));
             }
