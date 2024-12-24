@@ -50,6 +50,19 @@ namespace darthHelperLibs.test.StringHelper
                 Assert.Equal(expected, input.Left(n));
             }
         }
+
+        [Theory]
+        [InlineData("Hello, World!", 6, "World!")]
+        [InlineData("Short", 10, "Short")]
+        [InlineData("", 3, "")]
+        [InlineData(null, 4, "")]
+        [InlineData("Sample", -3, "")]
+        [InlineData("EdgeCase", 8, "EdgeCase")] // n == length
+        public void Right_ShouldReturnExpectedResult(string? input, int n, string expected)
+        {
+            var result = input.Right(n);
+            Assert.Equal(expected, result);
+        }
     }
 
 }

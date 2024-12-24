@@ -14,10 +14,28 @@ namespace darthHelperLibs.StringHelper
         /// </returns>
         public static string Left(this string? input, int n)
         {
-            if (n <= 0 || string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input) || n <= 0)
                 return string.Empty;
 
             return n >= input.Length ? input : input[..n];
+        }
+
+        /// <summary>
+        /// Returns the rightmost `n` characters from the given string.
+        /// </summary>
+        /// <param name="input">The input string from which to extract the rightmost characters.</param>
+        /// <param name="n">The number of characters to extract from the right end of the string.</param>
+        /// <returns>
+        /// A string containing the rightmost `n` characters of the input string, or an empty string
+        /// if the input is null, empty, or `n` is non-positive.
+        /// If `n` is greater than or equal to the length of the string, the entire string is returned.
+        /// </returns>
+        public static string Right(this string? input, int n)
+        {
+            if (string.IsNullOrEmpty(input) || n <= 0)
+                return string.Empty;
+
+            return n >= input.Length ? input : input[^n..];
         }
 
         /// <summary>
