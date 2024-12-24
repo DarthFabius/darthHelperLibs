@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "darthHelperLibs", "darthHelperLibs\darthHelperLibs.csproj", "{16405508-206C-447D-B980-AD10D17EBBED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "darthHelperLibs.test", "darthHelperLibs.test\darthHelperLibs.test.csproj", "{97A45B32-C93F-48A3-9978-EA3D53EFB576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{16405508-206C-447D-B980-AD10D17EBBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16405508-206C-447D-B980-AD10D17EBBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16405508-206C-447D-B980-AD10D17EBBED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A45B32-C93F-48A3-9978-EA3D53EFB576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A45B32-C93F-48A3-9978-EA3D53EFB576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A45B32-C93F-48A3-9978-EA3D53EFB576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A45B32-C93F-48A3-9978-EA3D53EFB576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
