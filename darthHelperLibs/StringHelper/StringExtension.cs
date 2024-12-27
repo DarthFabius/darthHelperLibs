@@ -63,5 +63,26 @@ namespace darthHelperLibs.StringHelper
 
             return strBuilder.ToString();
         }
+
+        /// <summary>
+        /// Encodes the specified string into its Base64 representation using UTF-8 encoding.
+        /// </summary>
+        /// <param name="str">The input string to encode. If null, an empty string is used.</param>
+        /// <returns>A Base64 encoded string representation of the input.</returns>
+        /// <remarks>
+        /// This method is useful for encoding text data into Base64 format, 
+        /// commonly used for safe transmission or storage.
+        /// </remarks>
+        public static string ToBase64(this string? str)
+        {
+            // Handle null input by defaulting to an empty string.
+            str ??= string.Empty;
+
+            // Convert the string into a UTF-8 encoded byte array.
+            var byteArray = Encoding.UTF8.GetBytes(str);
+
+            // Convert the byte array to a Base64 encoded string.
+            return Convert.ToBase64String(byteArray);
+        }
     }
 }

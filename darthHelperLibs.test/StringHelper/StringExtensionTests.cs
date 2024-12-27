@@ -1,4 +1,4 @@
-using darthHelperLibs.StringHelper;
+﻿using darthHelperLibs.StringHelper;
 
 namespace darthHelperLibs.test.StringHelper
 {
@@ -62,6 +62,23 @@ namespace darthHelperLibs.test.StringHelper
         {
             var result = input.Right(n);
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("Hello, World!", "SGVsbG8sIFdvcmxkIQ==")] // Normal string
+        [InlineData("", "")] // Empty string
+        [InlineData(null, "")] // Null input
+        [InlineData("12345", "MTIzNDU=")] // Numeric string
+        [InlineData("😀", "8J+YgA==")] // Unicode emoji
+        [InlineData(" ", "IA==")] // Single space
+        [InlineData("Line\nBreak", "TGluZQpCcmVhaw==")] // String with line break
+        public void ToBase64_EncodesCorrectly(string? input, string expectedBase64)
+        {
+            // Act
+            var result = input.ToBase64();
+
+            // Assert
+            Assert.Equal(expectedBase64, result);
         }
     }
 
