@@ -39,18 +39,63 @@ namespace darthHelperLibs.Test.StringHelper
 
         #endregion
 
+        #region IsValidEmail
+
+        // Test valid email formats
+        [Theory]
+        [InlineData("test@example.com", true)]
+        [InlineData("user.name+tag@example.com", true)]
+        [InlineData("user@subdomain.example.com", true)]
+        [InlineData("user123@example.co", true)]
+        [InlineData("用户@例子.公司", true)]  // International characters
+        [InlineData("user@subdomain.example.superlongdomain.com", true)]  // Long domain
+        [InlineData("invalid@domain..com", false)]  // Invalid: consecutive dots in domain
+        [InlineData("user@domain", false)]  // Invalid: missing TLD
+        [InlineData("user@domain.c", false)]  // Invalid: TLD too short
+        [InlineData("user@domain@domain.com", false)]  // Invalid: multiple '@' symbols
+        [InlineData("user@domain.com.", false)]  // Invalid: trailing dot in domain
+        [InlineData("user@-domain.com", false)]  // Invalid: domain starts with a hyphen
+        [InlineData("user@domain.com-", false)]  // Invalid: domain ends with a hyphen
+        [InlineData("user@subdomain..example.com", false)]  // Invalid: consecutive dots in subdomain
+        [InlineData("user!#$%&'*+/=?^_`{|}~@domain.com", true)]  // Special chars in local part
+        [InlineData("user@domain.", false)]  // Invalid: domain ends with a dot
+        public void IsValidEmail_ShouldReturnExpectedResults(string email, bool expected)
+        {
+            // Act
+            var result = email.IsValidEmail();
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        // Test edge cases
+        [Theory]
+        [InlineData(null, false)] // Null input
+        [InlineData("", false)] // Empty string
+        [InlineData("   ", false)] // String with only whitespace
+        public void IsValidEmail_ShouldReturnFalseForNullOrEmptyOrWhitespace(string? email, bool expected)
+        {
+            // Act
+            bool result = email.IsValidEmail();
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        #endregion
+
         #region Left Method Tests
 
         public class LeftTests
         {
             [Theory]
-            [InlineData("Hello, World!", 5, "Hello")]   // Normal case
-            [InlineData("Short", 10, "Short")]          // n > length
-            [InlineData("", 3, "")]                     // Empty input
-            [InlineData(null, 4, "")]                   // Null input
-            [InlineData("Sample", 0, "")]               // n = 0
-            [InlineData("Sample", -3, "")]              // n < 0
-            [InlineData("Edge", 4, "Edge")]             // n == length
+            [InlineData("Hello, World!", 5, "Hello")] // Normal case
+            [InlineData("Short", 10, "Short")] // n > length
+            [InlineData("", 3, "")] // Empty input
+            [InlineData(null, 4, "")] // Null input
+            [InlineData("Sample", 0, "")] // n = 0
+            [InlineData("Sample", -3, "")] // n < 0
+            [InlineData("Edge", 4, "Edge")] // n == length
             public void GetLeft_ShouldReturnExpectedResult(string? input, int n, string expected)
             {
                 Assert.Equal(expected, input.Left(n));
@@ -60,21 +105,23 @@ namespace darthHelperLibs.Test.StringHelper
         #endregion
 
         #region Reverse Method Tests
-            [Theory]
-            [InlineData("Hello, World!", "!dlroW ,olleH")]  // Normal case
-            [InlineData("abc", "cba")]                      // Simple case
-            [InlineData("A", "A")]                          // Single character
-            [InlineData("", "")]                            // Empty string
-            [InlineData(null, null)]                        // Null input
-            [InlineData(" 123 ", " 321 ")]                  // String with spaces
-            public void Reverse_ShouldReturnReversedString(string? input, string? expected)
-            {
-                // Act
-                var result = input.Reverse();
 
-                // Assert
-                Assert.Equal(expected, result);
-            }
+        [Theory]
+        [InlineData("Hello, World!", "!dlroW ,olleH")] // Normal case
+        [InlineData("abc", "cba")] // Simple case
+        [InlineData("A", "A")] // Single character
+        [InlineData("", "")] // Empty string
+        [InlineData(null, null)] // Null input
+        [InlineData(" 123 ", " 321 ")] // String with spaces
+        public void Reverse_ShouldReturnReversedString(string? input, string? expected)
+        {
+            // Act
+            var result = input.Reverse();
+
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
         #endregion
 
 
