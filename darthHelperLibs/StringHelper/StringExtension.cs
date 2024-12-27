@@ -21,6 +21,25 @@ namespace darthHelperLibs.StringHelper
         }
 
         /// <summary>
+        /// Reverses the characters in the specified string.
+        /// </summary>
+        /// <param name="str">The input string to reverse. If null or empty, the original string is returned.</param>
+        /// <returns>
+        /// A new string with the characters in reverse order, or the original string if it is null or empty.
+        /// </returns>
+        public static string? Reverse(this string? str)
+        {
+            // Return the original string if it is null or empty.
+            if (string.IsNullOrEmpty(str)) return str;
+
+            // Reverse the string using a character array.
+            var charArray = str.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+
+        /// <summary>
         /// Returns the rightmost `n` characters from the given string.
         /// </summary>
         /// <param name="input">The input string from which to extract the rightmost characters.</param>
@@ -83,6 +102,35 @@ namespace darthHelperLibs.StringHelper
 
             // Convert the byte array to a Base64 encoded string.
             return Convert.ToBase64String(byteArray);
+        }
+
+        /// <summary>
+        /// Decodes a Base64 encoded string into its original string representation.
+        /// </summary>
+        /// <param name="base64String">The Base64 encoded string to decode.</param>
+        /// <returns>
+        /// The decoded string from the Base64 input, or an empty string if the input is null or empty.
+        /// </returns>
+        /// <remarks>
+        /// The decoding assumes UTF-8 encoding for the resulting string.
+        /// If the input is not valid Base64, an exception is thrown.
+        /// </remarks>
+        public static string FromBase64(this string? base64String)
+        {
+            // Return an empty string for null or empty input.
+            if (string.IsNullOrWhiteSpace(base64String))
+                return string.Empty;
+
+            try
+            {
+                // Decode the Base64 string and convert to a UTF-8 string.
+                return Encoding.UTF8.GetString(Convert.FromBase64String(base64String));
+            }
+            catch (FormatException ex)
+            {
+                // Throw a descriptive exception for invalid Base64 input.
+                throw new ArgumentException("Invalid Base64 string.", nameof(base64String), ex);
+            }
         }
     }
 }

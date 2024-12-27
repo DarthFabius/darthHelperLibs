@@ -1,16 +1,18 @@
 ﻿using darthHelperLibs.StringHelper;
 
-namespace darthHelperLibs.test.StringHelper
+namespace darthHelperLibs.Test.StringHelper
 {
     public class StringExtensionTests
     {
+        #region BuildString Tests
+
         [Theory]
         [InlineData(null, "")]
         [InlineData(new string[] { }, "")]
         [InlineData(new[] { "Hello", " ", "World" }, "Hello World")]
         [InlineData(new[] { "Hello", null, "World" }, "HelloWorld")]
         [InlineData(new[] { "A", "", "B" }, "AB")]
-        public void BuildString_WithVariousInputs_ReturnsExpectedString(string[]? input, string expected)
+        public void BuildString_WhenCalledWithVariousInputs_ReturnsExpectedString(string[]? input, string expected)
         {
             // Arrange
             IEnumerable<string>? values = input;
@@ -35,6 +37,10 @@ namespace darthHelperLibs.test.StringHelper
             Assert.Equal(new string('A', 1000) + new string('B', 1000), result);
         }
 
+        #endregion
+
+        #region Left Method Tests
+
         public class LeftTests
         {
             [Theory]
@@ -51,6 +57,29 @@ namespace darthHelperLibs.test.StringHelper
             }
         }
 
+        #endregion
+
+        #region Reverse Method Tests
+            [Theory]
+            [InlineData("Hello, World!", "!dlroW ,olleH")]  // Normal case
+            [InlineData("abc", "cba")]                      // Simple case
+            [InlineData("A", "A")]                          // Single character
+            [InlineData("", "")]                            // Empty string
+            [InlineData(null, null)]                        // Null input
+            [InlineData(" 123 ", " 321 ")]                  // String with spaces
+            public void Reverse_ShouldReturnReversedString(string? input, string? expected)
+            {
+                // Act
+                var result = input.Reverse();
+
+                // Assert
+                Assert.Equal(expected, result);
+            }
+        #endregion
+
+
+        #region Right Method Tests
+
         [Theory]
         [InlineData("Hello, World!", 6, "World!")]
         [InlineData("Short", 10, "Short")]
@@ -60,9 +89,16 @@ namespace darthHelperLibs.test.StringHelper
         [InlineData("EdgeCase", 8, "EdgeCase")] // n == length
         public void Right_ShouldReturnExpectedResult(string? input, int n, string expected)
         {
+            // Act
             var result = input.Right(n);
+
+            // Assert
             Assert.Equal(expected, result);
         }
+
+        #endregion
+
+        #region Base64 Tests
 
         [Theory]
         [InlineData("Hello, World!", "SGVsbG8sIFdvcmxkIQ==")] // Normal string
@@ -72,7 +108,7 @@ namespace darthHelperLibs.test.StringHelper
         [InlineData("😀", "8J+YgA==")] // Unicode emoji
         [InlineData(" ", "IA==")] // Single space
         [InlineData("Line\nBreak", "TGluZQpCcmVhaw==")] // String with line break
-        public void ToBase64_EncodesCorrectly(string? input, string expectedBase64)
+        public void ToBase64_WhenCalled_EncodesCorrectly(string? input, string expectedBase64)
         {
             // Act
             var result = input.ToBase64();
@@ -80,6 +116,31 @@ namespace darthHelperLibs.test.StringHelper
             // Assert
             Assert.Equal(expectedBase64, result);
         }
-    }
 
+        [Theory]
+        [InlineData("SGVsbG8sIFdvcmxkIQ==", "Hello, World!")]
+        [InlineData("", "")]
+        [InlineData(null, "")]
+        [InlineData("8J+YgA==", "😀")]
+        public void FromBase64_WhenCalled_DecodesCorrectly(string? base64Input, string expectedOutput)
+        {
+            // Act
+            var result = base64Input.FromBase64();
+
+            // Assert
+            Assert.Equal(expectedOutput, result);
+        }
+
+        [Fact]
+        public void FromBase64_InvalidBase64_ThrowsArgumentException()
+        {
+            // Arrange
+            const string invalidBase64 = "Invalid_Base64_String";
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => invalidBase64.FromBase64());
+        }
+
+        #endregion
+    }
 }
