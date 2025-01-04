@@ -1,5 +1,6 @@
 ﻿using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace darthHelperLibs.StringHelper
 {
@@ -15,10 +16,9 @@ namespace darthHelperLibs.StringHelper
         /// </returns>
         public static bool IsValidEmail(this string? email)
         {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return false;
-            }
+            if (string.IsNullOrWhiteSpace(email)) return false;
+
+            if (Resources.Regexes.EmailRegex.IsMatch(email)) return true;
 
             // Check that the domain part does not end with a hyphen or contain consecutive dots
             var atIndex = email.LastIndexOf('@');
