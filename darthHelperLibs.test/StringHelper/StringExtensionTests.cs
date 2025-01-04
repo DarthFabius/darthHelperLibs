@@ -85,7 +85,6 @@ namespace darthHelperLibs.Test.StringHelper
         #endregion
 
         #region Left Method Tests
-
         public class LeftTests
         {
             [Theory]
@@ -124,7 +123,6 @@ namespace darthHelperLibs.Test.StringHelper
 
         #endregion
 
-
         #region Right Method Tests
 
         [Theory]
@@ -143,6 +141,31 @@ namespace darthHelperLibs.Test.StringHelper
             Assert.Equal(expected, result);
         }
 
+        #endregion
+
+        #region Repeat Method Test
+        /// <summary>
+        /// Tests the Repeat method with various inputs and ensures the output matches expectations.
+        /// </summary>
+        /// <param name="input">The string to be repeated.</param>
+        /// <param name="count">The number of times to repeat the string.</param>
+        /// <param name="expected">The expected result after repeating.</param>
+        [Theory]
+        [InlineData("abc", 3, "abcabcabc")] // Normal case: repeat a string multiple times
+        [InlineData("abc", 0, "")]         // Edge case: zero repetitions
+        [InlineData("abc", -1, "")]        // Edge case: negative repetitions
+        [InlineData("", 5, "")]            // Edge case: empty string repeated
+        [InlineData(null, 5, "")]            // Edge case: null string
+        [InlineData("a", 10, "aaaaaaaaaa")] // Single character repeated multiple times
+        [InlineData("ab", 1, "ab")]        // Single repetition
+        public void Repeat_ShouldReturnExpectedResults(string? input, int count, string expected)
+        {
+            // Act: Call the Repeat method with the given input and count.
+            var result = input.Repeat(count);
+
+            // Assert: Verify the output matches the expected result.
+            Assert.Equal(expected, result);
+        }
         #endregion
 
         #region Base64 Tests

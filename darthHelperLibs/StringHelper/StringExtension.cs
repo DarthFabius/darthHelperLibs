@@ -72,15 +72,15 @@ namespace darthHelperLibs.StringHelper
             }
         }
 
-    /// <summary>
-    /// Returns the leftmost n characters of a given string.
-    /// </summary>
-    /// <param name="input">The input string.</param>
-    /// <param name="n">The number of characters to extract.</param>
-    /// <returns>
-    /// The leftmost n characters of the input string, or an empty string if the input is null, empty, or n is less than or equal to zero.
-    /// </returns>
-    public static string Left(this string? input, int n)
+        /// <summary>
+        /// Returns the leftmost n characters of a given string.
+        /// </summary>
+        /// <param name="input">The input string.</param>
+        /// <param name="n">The number of characters to extract.</param>
+        /// <returns>
+        /// The leftmost n characters of the input string, or an empty string if the input is null, empty, or n is less than or equal to zero.
+        /// </returns>
+        public static string Left(this string? input, int n)
         {
             if (string.IsNullOrEmpty(input) || n <= 0)
                 return string.Empty;
@@ -106,7 +106,6 @@ namespace darthHelperLibs.StringHelper
             return new string(charArray);
         }
 
-
         /// <summary>
         /// Returns the rightmost `n` characters from the given string.
         /// </summary>
@@ -123,6 +122,28 @@ namespace darthHelperLibs.StringHelper
                 return string.Empty;
 
             return n >= input.Length ? input : input[^n..];
+        }
+
+        /// <summary>
+        /// Repeats the specified string a given number of times and returns the concatenated result.
+        /// </summary>
+        /// <param name="str">The string to repeat. Can be null or empty.</param>
+        /// <param name="count">The number of times to repeat the string. Must be non-negative.</param>
+        /// <returns>
+        /// A new string consisting of the input string repeated <paramref name="count"/> times.
+        /// If <paramref name="count"/> is 0 or less, returns an empty string.
+        /// </returns>
+        public static string Repeat(this string? str, int count)
+        {
+            // Return an empty string if string is null o blanck
+            if(string.IsNullOrEmpty(str)) return string.Empty;
+
+            // Return an empty string if count is zero or negative.
+            if (count <= 0) return string.Empty;
+
+            // Use Enumerable.Repeat to generate a sequence of the string repeated 'count' times,
+            // then concatenate the sequence into a single string.
+            return string.Concat(Enumerable.Repeat(str, count));
         }
 
         /// <summary>
