@@ -132,18 +132,21 @@ namespace darthHelperLibs.StringHelper
         /// <returns>
         /// A single concatenated string, or an empty string if the collection is null or empty.
         /// </returns>
-        public static string BuildString(this IEnumerable<string?>? values)
+        public static string ToString(this IEnumerable<string?>? values)
         {
-            if (values == null || !values.Any())
+            if (values == null)
                 return string.Empty;
 
+            // Avoid multiple iteration
+            var enumerable = values.ToList();
+
             // Calculate estimated capacity using Aggregate for better readability
-            var estimatedCapacity = values.Aggregate(0, (sum, value) => sum + (value?.Length ?? 0));
+            var estimatedCapacity = enumerable.Aggregate(0, (sum, value) => sum + (value?.Length ?? 0));
 
             var strBuilder = new StringBuilder(estimatedCapacity);
 
             // Use StringBuilder.Append directly while iterating
-            foreach (var value in values)
+            foreach (var value in enumerable)
             {
                 strBuilder.Append(value ?? string.Empty);
             }

@@ -4,7 +4,7 @@ namespace darthHelperLibs.Test.StringHelper
 {
     public class StringExtensionTests
     {
-        #region BuildString Tests
+        #region ToString Tests
 
         [Theory]
         [InlineData(null, "")]
@@ -18,7 +18,7 @@ namespace darthHelperLibs.Test.StringHelper
             IEnumerable<string>? values = input;
 
             // Act
-            var result = values.BuildString();
+            var result = StringExtension.ToString(values);
 
             // Assert
             Assert.Equal(expected, result);
@@ -31,7 +31,7 @@ namespace darthHelperLibs.Test.StringHelper
             var values = new List<string> { new('A', 1000), new('B', 1000) };
 
             // Act
-            var result = values.BuildString();
+            var result = StringExtension.ToString(values);
 
             // Assert
             Assert.Equal(new string('A', 1000) + new string('B', 1000), result);
